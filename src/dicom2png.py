@@ -31,7 +31,7 @@ from pydicom.errors import InvalidDicomError
 
 VERBOSE = False
 
-def dicom2png(dicom_file : str, output_dir: str, bit_depth : int =8) -> int:
+def dicom2png(dicom_file : str, output_dir: str, bit_depth : int) -> int:
     """
     Convert a DICOM image to PNG.
     It will make the tree of directories from the `dicom_file` path in
