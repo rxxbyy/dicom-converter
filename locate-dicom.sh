@@ -50,7 +50,7 @@ if [ -z "$outpath" ]; then
 fi
 
 locate_dicom() {
-    find $dicomdir | grep -E '\.dcm|\.dicom' > $outpath
+    find $dicomdir | grep -E '.dcm|.dicom' > $outpath
 }
 
 locate_dicom
