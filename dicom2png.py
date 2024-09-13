@@ -139,7 +139,6 @@ if __name__ == '__main__':
     parser.add_argument('outdir', type=str, nargs=1, help='Output directory')
 
     args = parser.parse_args()
-
     os.makedirs(args.outdir[0], exist_ok=True)
 
     if args.bit_depth is None:
