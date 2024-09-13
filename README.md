@@ -78,7 +78,17 @@ option `-v` enables verbose mode, and `-b 16` mean that the program will generat
 16-bit depth PNG images
 
 ## Install dependencies
-You can use PIP to install all the dependencies running
+Create a virtual environment using virtualenv
+```
+$ virtualenv venv
+```
+then install all the dependencies running
 ```
 $ pip install -r requirements.txt
+```
+---
+Now, if you're in Ubuntu 24.x and the above process doesn't work, try
+using APT.
+```
+$ sudo apt install python3-pydicom python3-opencv python3-mpi4py
 ```
