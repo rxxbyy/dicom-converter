@@ -4,10 +4,10 @@ Parsing Interface.
 
 ## Usage
 ```
-$ mpiexec -np <number of processors> python3 dicom2png.py <dicom paths file> <output directory>
+$ mpiexec -np <number of processors> python3 src/dicom2png.py <dicom paths file> <output directory>
 ```
 where `dicom paths file` contains paths to DICOM images, they can be generated
-using the script `locate-dicom.sh
+using the script `scripts/locate-dicom.sh`
 
 ### Example
 Suppose we have the following directory of DICOM images
