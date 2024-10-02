@@ -54,9 +54,12 @@ case1_012.dcm  case1_020.dcm  case1_028.dcm  case1_036.dcm  case1_044.dcm  case1
 case1_014.dcm  case1_022.dcm  case1_030.dcm  case1_038.dcm  case1_046.dcm  case1_054.dcm  case1_062.dcm
 ```
 
-Now, to convert all of that DICOM images to PNG, run
+Now, to convert all of that DICOM images to PNG, run:
 ```
 $ mpiexec -np 8 python3 dicom2PngNpy.py data dataconverted 8
+```
+
+```
 Process 5: 439 files processed
 Process 7: 481 files processed
 Process 0: 533 files processed
