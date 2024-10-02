@@ -2,3 +2,4 @@ mpi4py==4.0.0
 numpy==2.1.1
 opencv-python==4.10.0.84
 pydicom==3.0.0
+cupy-13.3.0
