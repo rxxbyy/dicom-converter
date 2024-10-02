@@ -4,10 +4,45 @@ Parsing Interface.
 
 ## Usage
 ```
-$ mpiexec -np <number of processors> python3 src/dicom2png.py <dicom paths file> <output directory>
+$ mpiexec -np <number_processors> python3 dicom2PngNpy.py {input_directory} {output_directory} <bit_depth 8 or 16>
 ```
-where `dicom paths file` contains paths to DICOM images, they can be generated
-using the script `scripts/locate-dicom.sh`
+
+### Input Folder Structure
+The input folder can contain subfolders, and the script will recursively process all files within the folder and its subfolders. 
+The script will maintain the original folder hierarchy, so that the output files are organized in the same way as the input files.
+
+```
+input_folder/
+  subfolder1/
+    file1.dcm
+    file2.dcm
+  subfolder2/
+    file3.dcm
+    file4.dcm
+  file5.dcm
+  file6.dcm
+
+```
+### Output Folder Structure
+After running the script, the output folder will have the same structure as the input folder, with the converted files in the corresponding new formats:
+```
+output_folder/
+  subfolder1/
+    file1.png
+    file1.npy
+    file2.png
+    file2.npy
+  subfolder2/
+    file3.png
+    file3.npy
+    file4.png
+    file4.npy
+  file5.png
+  file5.npy
+  file6.png
+  file6.npy
+
+```
 
 ### Example
 Suppose we have the following directory of DICOM images
@@ -19,63 +54,33 @@ case1_012.dcm  case1_020.dcm  case1_028.dcm  case1_036.dcm  case1_044.dcm  case1
 case1_014.dcm  case1_022.dcm  case1_030.dcm  case1_038.dcm  case1_046.dcm  case1_054.dcm  case1_062.dcm
 ```
 
-We execute
-```
-$ ./scripts/locate-dicom.sh -o dcmpaths.dat ../example-dcm/
-Successfully written 31 DICOM image paths to "dcmpaths.dat"
-```
-where the contents of `dcmpaths.dat` look like
-```
-$ head dcmpaths.dat
-../example-dcm/case1_060.dcm
-../example-dcm/case1_054.dcm
-../example-dcm/case1_024.dcm
-../example-dcm/case1_010.dcm
-../example-dcm/case1_032.dcm
-../example-dcm/case1_022.dcm
-../example-dcm/case1_056.dcm
-../example-dcm/case1_050.dcm
-../example-dcm/case1_064.dcm
-../example-dcm/case1_052.dcm
-```
 Now, to convert all of that DICOM images to PNG, run
 ```
-$ mpiexec -np 2 python3 src/dicom2png.py -v -b 16 ./dcmpaths.dat ./out
-[process 1] Saved image "case1_028.png" on "./.out/example-dcm/case1_028.png".
-[process 0] Saved image "case1_060.png" on "./.out/example-dcm/case1_060.png".
-[process 1] Saved image "case1_008.png" on "./.out/example-dcm/case1_008.png".
-[process 0] Saved image "case1_054.png" on "./.out/example-dcm/case1_054.png".
-[process 1] Saved image "case1_068.png" on "./.out/example-dcm/case1_068.png".
-[process 1] Saved image "case1_018.png" on "./.out/example-dcm/case1_018.png".
-[process 1] Saved image "case1_042.png" on "./.out/example-dcm/case1_042.png".
-[process 0] Saved image "case1_024.png" on "./.out/example-dcm/case1_024.png".
-[process 1] Saved image "case1_036.png" on "./.out/example-dcm/case1_036.png".
-[process 0] Saved image "case1_010.png" on "./.out/example-dcm/case1_010.png".
-[process 1] Saved image "case1_058.png" on "./.out/example-dcm/case1_058.png".
-[process 1] Saved image "case1_040.png" on "./.out/example-dcm/case1_040.png".
-[process 0] Saved image "case1_032.png" on "./.out/example-dcm/case1_032.png".
-[process 0] Saved image "case1_022.png" on "./.out/example-dcm/case1_022.png".
-[process 1] Saved image "case1_030.png" on "./.out/example-dcm/case1_030.png".
-[process 0] Saved image "case1_056.png" on "./.out/example-dcm/case1_056.png".
-[process 0] Saved image "case1_050.png" on "./.out/example-dcm/case1_050.png".
-[process 0] Saved image "case1_064.png" on "./.out/example-dcm/case1_064.png".
-[process 1] Saved image "case1_020.png" on "./.out/example-dcm/case1_020.png".
-[process 0] Saved image "case1_052.png" on "./.out/example-dcm/case1_052.png".
-[process 0] Saved image "case1_046.png" on "./.out/example-dcm/case1_046.png".
-[process 0] Saved image "case1_038.png" on "./.out/example-dcm/case1_038.png".
-[process 1] Saved image "case1_062.png" on "./.out/example-dcm/case1_062.png".
-[process 0] Saved image "case1_034.png" on "./.out/example-dcm/case1_034.png".
-[process 0] Saved image "case1_044.png" on "./.out/example-dcm/case1_044.png".
-[process 0] Saved image "case1_026.png" on "./.out/example-dcm/case1_026.png".
-[process 0] Saved image "case1_066.png" on "./.out/example-dcm/case1_066.png".
-[process 1] Saved image "case1_014.png" on "./.out/example-dcm/case1_014.png".
-[process 1] Saved image "case1_048.png" on "./.out/example-dcm/case1_048.png".
-[process 1] Saved image "case1_012.png" on "./.out/example-dcm/case1_012.png".
-[process 1] Saved image "case1_016.png" on "./.out/example-dcm/case1_016.png".
+$ mpiexec -np 8 python3 dicom2PngNpy.py data dataconverted 8
+Process 5: 439 files processed
+Process 7: 481 files processed
+Process 0: 533 files processed
+Process 3: 425 files processed
+Process 6: 495 files processed
+Process 4: 439 files processed
+Process 7: 482 files processed
+Process 0: 534 files processed
+Process 3: 426 files processed
+Process 4: 440 files processed
+Process 7: 483 files processed
+Process 0: 535 files processed
+Process 3: 427 files processed
+Process 6: 496 files processed
+Process 3: 428 files processed
+Process 5: 440 files processed
+Process 3: 429 files processed
+Process 4: 441 files processed
+Process 0: 536 files processed
+Process 7: 484 files processed ....
+
 ```
-The above command uses `mpiexec` to run `dicom2png` using two processors. The
-option `-v` enables verbose mode, and `-b 16` mean that the program will generate
-16-bit depth PNG images
+The above command uses `mpiexec` to run `dicom2PngNpy.py` using two processors. The
+option ` 16 or 8 ` mean that the program will generate 16-bit depth or 8-bit depth PNG images
 
 ## Install dependencies
 Create a virtual environment using virtualenv
