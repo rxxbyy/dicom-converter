@@ -1,4 +1,4 @@
-# dicom2png
+# Dicom to png and numpy
 Convert DICOM format images to PNG using in Python in parallel using Message
 Parsing Interface.
 
