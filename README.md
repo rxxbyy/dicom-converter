@@ -39,8 +39,13 @@ $ head dcmpaths.dat
 ../example-dcm/case1_052.dcm
 ```
 Now, to convert all of that DICOM images to PNG, run
+
 ```
-$ mpiexec -np 2 python3 src/dicom2png.py -v -b 16 ./dcmpaths.dat ./out
+$ mpiexec -np 2 python3 src/dicom2png.py -v -b -f ./dcmpaths.dat ./out
+```
+
+```
+$ mpiexec -np 11 python dicom2png.py -b 8 -v -f PNG dcmpaths.dat Breast
 [process 1] Saved image "case1_028.png" on "./.out/example-dcm/case1_028.png".
 [process 0] Saved image "case1_060.png" on "./.out/example-dcm/case1_060.png".
 [process 1] Saved image "case1_008.png" on "./.out/example-dcm/case1_008.png".
