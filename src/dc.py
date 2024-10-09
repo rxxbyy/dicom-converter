@@ -27,7 +27,7 @@ from pathlib import Path, PosixPath
 import os, sys
 import argparse
 import numpy as np
-#import cupy as cp
+import cupy as cp
 import cv2
 from pydicom.errors import InvalidDicomError
 from PIL import Image
